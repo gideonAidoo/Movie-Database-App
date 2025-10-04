@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
+
 
 const Search = () => {
   const [query, setQuery] = useState("");
@@ -19,10 +21,10 @@ const Search = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-900 text-white flex flex-col items-center py-10">
+    <div className="min-h-screen bg-zinc-900 text-white flex flex-col items-center py-10">
       <h1 className="text-4xl font-bold mb-6"> Movie Database</h1>
 
-      {/* Search Form */}
+      {/* Search Bar */}
       <form onSubmit={handleSearch} className="flex w-full max-w-md mb-8">
         <input
           type="text"
@@ -39,24 +41,25 @@ const Search = () => {
         </button>
       </form>
 
-      {/* Results */}
       <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-6 w-full max-w-6xl px-5">
-        {movies.map((movie) => (
-          <div
-            key={movie.imdbID}
-            className="bg-gray-800 rounded-lg shadow-md overflow-hidden hover:scale-105 transition-transform"
-          >
-            <img
-              src={movie.Poster !== "N/A" ? movie.Poster : "https://via.placeholder.com/300"}
-              alt={movie.Title}
-              className="w-full h-80 object-cover"
-            />
-            <div className="p-3 text-center">
-              <h2 className="font-semibold">{movie.Title}</h2>
-              <p className="text-gray-400">{movie.Year}</p>
-            </div>
-          </div>
-        ))}
+       {movies.map((movie) => (
+  <Link
+    to={`/movie/${movie.imdbID}`}
+    key={movie.imdbID}
+    className="bg-gray-800 rounded-lg shadow-md overflow-hidden hover:scale-105 transition-transform"
+  >
+    <img
+      src={movie.Poster !== "N/A" ? movie.Poster : "https://via.placeholder.com/300"}
+      alt={movie.Title}
+      className="w-full h-80 object-cover"
+    />
+    <div className="p-3 text-center">
+      <h2 className="font-semibold">{movie.Title}</h2>
+      <p className="text-gray-400">{movie.Year}</p>
+    </div>
+  </Link>
+))}
+
       </div>
     </div>
   );
