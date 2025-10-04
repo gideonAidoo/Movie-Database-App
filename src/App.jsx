@@ -1,14 +1,12 @@
-import { useState } from 'react'
-
-import './index.css'
+import React from "react";
+import Search from "./components/Search";
 
 function App() {
-
   return (
-    <>
-      <h1 className='text-gray-500 text-center text-4xl font-bold p-6'>Movie Database App</h1>
-    </>
-  )
+    <div>
+      <Search />
+    </div>
+  );
 }
 
-export default App
+export default App;
