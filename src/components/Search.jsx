@@ -33,10 +33,14 @@ const Search = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-900 text-white flex flex-col items-center py-10">
-      <h1 className="text-4xl font-bold mb-6">Movie Database</h1>
+    <div className="min-h-screen bg-gray-900 text-white flex flex-col items-center py-5">
+        <img
+          src="/images/logo.png"
+          alt="Movie Logo"
+          className="w-40 h-45 object-cover"
+        />
 
-      <form onSubmit={handleSearch} className="flex w-full max-w-lg mb-8">
+      <form onSubmit={handleSearch} className="flex w-full max-w-lg mb-6">
         <input
           type="text"
           placeholder="Search for a movie..."
@@ -46,7 +50,7 @@ const Search = () => {
         />
         <button
           type="submit"
-          className="bg-blue-600 px-5 rounded-r-md hover:bg-blue-700 transition"
+          className="bg-orange-600 px-5 rounded-r-md hover:bg-sky-900 transition"
         >
           Search
         </button>
