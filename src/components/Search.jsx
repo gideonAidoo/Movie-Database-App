@@ -4,18 +4,31 @@ import MovieCard from "./MovieCard";
 const Search = () => {
   const [query, setQuery] = useState("");
   const [movies, setMovies] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
 
   const handleSearch = async (e) => {
     e.preventDefault();
+
     if (query.trim() === "") return;
 
-    const response = await fetch(`https://www.omdbapi.com/?apikey=f5b3e9&s=${query}`);
-    const data = await response.json();
+    setLoading(true);
+    setError("");
+    setMovies([]);
 
-    if (data.Search) {
-      setMovies(data.Search);
-    } else {
-      setMovies([]);
+    try {
+      const response = await fetch(`https://www.omdbapi.com/?apikey=f5b3e9&s=${query}`);
+      const data = await response.json();
+
+      if (data.Response === "True") {
+        setMovies(data.Search);
+      } else {
+        setError("No movies found. Try another title!");
+      }
+    } catch (err) {
+      setError("Something went wrong. Please try again later.");
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -39,12 +52,24 @@ const Search = () => {
         </button>
       </form>
 
-      {/* Display movies */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 px-6">
-        {movies.map((movie) => (
-          <MovieCard key={movie.imdbID} movie={movie} />
-        ))}
-      </div>
+      {/* Loading Spinner */}
+      {loading && (
+        <div className="flex justify-center items-center h-32">
+          <div className="w-10 h-10 border-4 border-blue-500 border-dashed rounded-full animate-spin"></div>
+        </div>
+      )}
+
+      {/* Error Message */}
+      {error && <p className="text-red-400 mt-4">{error}</p>}
+
+      {/* Movie Grid */}
+      {!loading && !error && movies.length > 0 && (
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 px-6">
+          {movies.map((movie) => (
+            <MovieCard key={movie.imdbID} movie={movie} />
+          ))}
+        </div>
+      )}
     </div>
   );
 };

@@ -2,40 +2,37 @@ import React, { useEffect, useState } from "react";
 import { useParams, Link } from "react-router-dom";
 
 const MovieDetails = () => {
-  const { id } = useParams();
+  const { id } = useParams(); // Get IMDb ID from URL
   const [movie, setMovie] = useState(null);
 
   useEffect(() => {
     const fetchMovieDetails = async () => {
-      const response = await fetch(`https://www.omdbapi.com/?apikey=f5b3e9&i=${id}&plot=full`);
-      const data = await response.json();
+      const res = await fetch(`https://www.omdbapi.com/?apikey=f5b3e9&i=${id}&plot=full`);
+      const data = await res.json();
       setMovie(data);
     };
     fetchMovieDetails();
   }, [id]);
 
-  if (!movie) return <div className="text-center mt-20 text-white">Loading...</div>;
+  if (!movie) return <div className="text-center text-white mt-10">Loading...</div>;
 
   return (
     <div className="min-h-screen bg-gray-900 text-white flex flex-col items-center py-10">
-      <Link to="/" className="text-blue-400 mb-6 hover:underline">
-        ← Back to Search
-      </Link>
+      <Link to="/" className="text-blue-500 mb-6 underline">← Back to Search</Link>
 
-      <div className="bg-gray-800 rounded-lg shadow-lg flex flex-col md:flex-row max-w-4xl overflow-hidden">
+      <div className="flex flex-col md:flex-row bg-gray-800 rounded-lg shadow-lg overflow-hidden max-w-4xl">
         <img
           src={movie.Poster !== "N/A" ? movie.Poster : "https://via.placeholder.com/400"}
           alt={movie.Title}
-          className="w-full md:w-1/3 h-auto object-cover"
+          className="w-full md:w-1/3 object-cover"
         />
-        <div className="p-6 flex flex-col gap-3">
-          <h1 className="text-3xl font-bold">{movie.Title}</h1>
-          <p className="text-gray-400 italic">{movie.Genre}</p>
-          <p><span className="font-semibold">Released:</span> {movie.Released}</p>
-          <p><span className="font-semibold">Director:</span> {movie.Director}</p>
-          <p><span className="font-semibold">Actors:</span> {movie.Actors}</p>
-          <p><span className="font-semibold">IMDB Rating:</span> ⭐ {movie.imdbRating}</p>
-          <p className="mt-4 text-gray-300">{movie.Plot}</p>
+        <div className="p-6 md:w-2/3">
+          <h2 className="text-3xl font-bold mb-2">{movie.Title}</h2>
+          <p className="text-gray-400 mb-2">{movie.Year} • {movie.Genre}</p>
+          <p className="mb-3"><strong>Director:</strong> {movie.Director}</p>
+          <p className="mb-3"><strong>Actors:</strong> {movie.Actors}</p>
+          <p className="mb-3"><strong>IMDB Rating:</strong> ⭐ {movie.imdbRating}</p>
+          <p className="text-gray-300 mt-4">{movie.Plot}</p>
         </div>
       </div>
     </div>
