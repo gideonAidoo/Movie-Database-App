@@ -1,81 +1,42 @@
-import React, { useState } from "react";
-import MovieCard from "./MovieCard";
+import React, { useEffect, useState } from "react";
+import { useLocation } from "react-router-dom";
+import MovieCard from "../components/MovieCard";
 
-const Search = () => {
-  const [query, setQuery] = useState("");
+const Home = () => {
   const [movies, setMovies] = useState([]);
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState("");
+  const location = useLocation();
+  const query = new URLSearchParams(location.search).get("q");
 
-  const handleSearch = async (e) => {
-    e.preventDefault();
-
-    if (query.trim() === "") return;
-
-    setLoading(true);
-    setError("");
-    setMovies([]);
-
-    try {
-      const response = await fetch(`https://www.omdbapi.com/?apikey=f5b3e9&s=${query}`);
-      const data = await response.json();
-
-      if (data.Response === "True") {
-        setMovies(data.Search);
-      } else {
-        setError("No movies found. Try another title!");
-      }
-    } catch (err) {
-      setError("Something went wrong. Please try again later.");
-    } finally {
+  useEffect(() => {
+    const fetchMovies = async () => {
+      setLoading(true);
+      let url = query
+        ? `https://www.omdbapi.com/?apikey=f5b3e9&s=${query}`
+        : `https://www.omdbapi.com/?apikey=f5b3e9&s=batman`; // default movie list
+      const res = await fetch(url);
+      const data = await res.json();
+      setMovies(data.Search || []);
       setLoading(false);
-    }
-  };
+    };
+    fetchMovies();
+  }, [query]);
 
   return (
-    <div className="min-h-screen bg-gray-900 text-white flex flex-col items-center py-5">
-        <img
-          src="/images/logo.png"
-          alt="Movie Logo"
-          className="w-40 h-45 object-cover"
-        />
+    <div className="min-h-screen bg-gray-900 text-white p-6">
+      <h1 className="text-3xl font-bold mb-6 text-center">
+        {query ? `Search Results for "${query}"` : "Popular Movies"}
+      </h1>
 
-      <form onSubmit={handleSearch} className="flex w-full max-w-lg mb-6">
-        <input
-          type="text"
-          placeholder="Search for a movie..."
-          value={query}
-          onChange={(e) => setQuery(e.target.value)}
-          className="flex-1 p-3 rounded-l-md text-black focus:outline-none"
-        />
-        <button
-          type="submit"
-          className="bg-orange-600 px-5 rounded-r-md hover:bg-sky-900 transition"
-        >
-          Search
-        </button>
-      </form>
+      {loading && <p className="text-center">Loading...</p>}
 
-      {/* Loading Spinner */}
-      {loading && (
-        <div className="flex justify-center items-center h-32">
-          <div className="w-10 h-10 border-4 border-blue-500 border-dashed rounded-full animate-spin"></div>
-        </div>
-      )}
-
-      {/* Error Message */}
-      {error && <p className="text-red-400 mt-4">{error}</p>}
-
-      {/* Movie Grid */}
-      {!loading && !error && movies.length > 0 && (
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 px-6">
-          {movies.map((movie) => (
-            <MovieCard key={movie.imdbID} movie={movie} />
-          ))}
-        </div>
-      )}
+      <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-6">
+        {movies.map((movie) => (
+          <MovieCard key={movie.imdbID} movie={movie} />
+        ))}
+      </div>
     </div>
   );
 };
 
-export default Search;
+export default Home;
