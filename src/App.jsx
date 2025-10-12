@@ -7,6 +7,7 @@ import Navbar from "./components/Navbar";
 import Home from "./components/Search";
 import MovieDetails from "./components/MovieDetails";
 import Favorites from "./components/Favorites";
+import Footer from "./components/Footer";
 
 function App() {
   return (
@@ -20,6 +21,8 @@ function App() {
 
       {/* Toast container for notifications */}
       <ToastContainer position="top-center" autoClose={2000} theme="dark" />
+
+      <Footer />
     </Router>
   );
 }
