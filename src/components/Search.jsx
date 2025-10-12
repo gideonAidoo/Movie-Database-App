@@ -16,7 +16,7 @@ const Home = () => {
       try {
         const url = query
           ? `https://www.omdbapi.com/?apikey=f5b3e9&s=${query}`
-          : `https://www.omdbapi.com/?apikey=f5b3e9&s=batman`; // default movie
+          : `https://www.omdbapi.com/?apikey=f5b3e9&s=popular`;
         const res = await fetch(url);
         const data = await res.json();
         setMovies(data.Search || []);
