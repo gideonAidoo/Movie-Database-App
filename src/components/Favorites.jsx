@@ -19,7 +19,7 @@ const Favorites = () => {
   return (
     <div className="min-h-screen bg-gray-900 text-white p-6">
       <div className="flex justify-between items-center mb-6">
-        <h1 className="text-3xl font-bold">Your Favorites ❤️</h1>
+        <h1 className="text-3xl font-bold">Your Favorites </h1>
 
         {favorites.length > 0 && (
           <button
