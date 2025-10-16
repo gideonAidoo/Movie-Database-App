@@ -83,10 +83,7 @@ const MovieDetails = () => {
               <span className="font-semibold text-white">Actors:</span>{" "}
               {movie.Actors}
             </p>
-            <p>
-              <span className="font-semibold text-white">Runtime:</span>{" "}
-              {movie.Runtime}
-            </p>
+           
             <p>
               <span className="font-semibold text-white">Rating:</span>{" "}
                {movie.imdbRating}
