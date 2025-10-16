@@ -62,7 +62,7 @@ const MovieDetails = () => {
 
         {/* Movie Details */}
         <div className="flex-1">
-          <h1 className="text-3xl sm:text-4xl font-bold text-yellow-400 mb-4">
+          <h1 className="text-3xl sm:text-4xl font-bold text-white-400 mb-4">
             {movie.Title}
           </h1>
 
@@ -90,7 +90,7 @@ const MovieDetails = () => {
             </p>
           </div>
 
-          <h2 className="text-2xl font-semibold text-yellow-400 mt-8 mb-3">
+          <h2 className="text-2xl text-white-400 mt-8 mb-3">
             Summary
           </h2>
           <p className="text-gray-300 leading-relaxed">{movie.Plot}</p>
