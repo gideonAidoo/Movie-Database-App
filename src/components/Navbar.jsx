@@ -55,7 +55,7 @@ const Navbar = () => {
             to="/favorites"
             className="hover:text-yellow-400 transition-colors duration-200"
           >
-            Favorites ⭐
+            Favorites 
           </Link>
         </div>
       </div>

@@ -15,7 +15,7 @@ const Home = () => {
       try {
         const url = query
           ? `https://www.omdbapi.com/?apikey=f5b3e9&s=${query}`
-          : `https://www.omdbapi.com/?apikey=f5b3e9&s=popular`;
+          : `https://www.omdbapi.com/?apikey=f5b3e9&s=fast&y=2022`;
         const res = await fetch(url);
         const data = await res.json();
         setMovies(data.Search || []);
@@ -31,7 +31,8 @@ const Home = () => {
   return (
     <div className="min-h-screen bg-gray-900 text-white p-6">
       <h1 className="text-3xl font-bold mb-6 text-center">
-        {query ? `Search Results for "${query}"` : "Popular Movies"}
+        {query ? `Search Results for "${query}"` : "Popular Movies  "}
+
       </h1>
 
       {loading ? (

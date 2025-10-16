@@ -9,15 +9,15 @@ const MovieCard = ({ movie }) => {
   const favorite = isFavorite(movie.imdbID);
 
   const handleFavoriteClick = (e) => {
-    e.stopPropagation(); // prevent click from opening details page
+    e.stopPropagation(); 
     e.preventDefault();
 
     if (favorite) {
       removeFavorite(movie.imdbID);
-      toast.info(`${movie.Title} removed from favorites 💔`);
+      toast.info(`${movie.Title} removed from favorites`);
     } else {
       addFavorite(movie);
-      toast.success(`${movie.Title} added to favorites ❤️`);
+      toast.success(`${movie.Title} added to favorites `);
     }
   };
 
