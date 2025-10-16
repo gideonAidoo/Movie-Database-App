@@ -6,7 +6,6 @@ const Home = () => {
   const [movies, setMovies] = useState([]);
   const [loading, setLoading] = useState(false);
 
-  // Get the search query from the URL (e.g. /?q=batman)
   const location = useLocation();
   const query = new URLSearchParams(location.search).get("q");
 

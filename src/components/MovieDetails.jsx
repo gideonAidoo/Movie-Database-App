@@ -16,7 +16,7 @@ const MovieDetails = () => {
         setMovie(data);
         setLoading(false);
 
-        // Check if it's already a favorite
+        //Check if it's already a favorite
         const favorites = JSON.parse(localStorage.getItem("favorites")) || [];
         const alreadyFavorite = favorites.some((fav) => fav.imdbID === data.imdbID);
         setIsFavorite(alreadyFavorite);
@@ -34,7 +34,7 @@ const MovieDetails = () => {
     const favorites = JSON.parse(localStorage.getItem("favorites")) || [];
 
     if (favorites.some((fav) => fav.imdbID === movie.imdbID)) {
-      // Remove from favorites
+
       const updated = favorites.filter((fav) => fav.imdbID !== movie.imdbID);
       localStorage.setItem("favorites", JSON.stringify(updated));
       setIsFavorite(false);
@@ -52,7 +52,7 @@ const MovieDetails = () => {
 
   return (
     <div className="min-h-screen bg-gray-900 text-white p-6">
-      <Link to="/" className="text-blue-400 underline mb-4 inline-block">
+      <Link to="/" className="text-yellow-400 underline mb-4 inline-block border-b border-yellow-400">
         ← Back to Home
       </Link>
 

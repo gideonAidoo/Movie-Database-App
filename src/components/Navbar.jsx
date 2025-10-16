@@ -18,13 +18,12 @@ const Navbar = () => {
   return (
     <nav className="bg-gray-900 text-white shadow-md py-4 sticky top-0 z-50">
       <div className="container mx-auto flex items-center justify-between px-6 flex-wrap gap-4">
-        {/* Left Section - Logo */}
+
         <Link to="/" className="flex items-center space-x-3">
           <img src={logo} alt="Logo" className="w-20 h-20 rounded-full" />
           <h1 className="text-2xl font-bold text-yellow-400">First<span className="text-slate-400">Man</span> Movies</h1>
         </Link>
 
-        {/* Middle Section - Search Bar */}
         <form
           onSubmit={handleSearch}
           className="relative flex-1 max-w-2xl mx-4"
@@ -36,7 +35,7 @@ const Navbar = () => {
             onChange={(e) => setQuery(e.target.value)}
             className="w-full pl-4 pr-10 py-2 rounded-md bg-gray-800 text-white focus:outline-none focus:ring-2 focus:ring-yellow-500 transition"
           />
-          {/* Search icon on the right inside the input */}
+
           <button
             type="submit"
             className="absolute right-3 top-1/2 transform -translate-y-1/2 text-yellow-400 hover:text-yellow-500"
@@ -45,7 +44,6 @@ const Navbar = () => {
           </button>
         </form>
 
-        {/* Right Section - Nav Links */}
         <div className="flex space-x-6">
           <Link
             to="/"
