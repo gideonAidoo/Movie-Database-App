@@ -1,103 +1,54 @@
-import React, { useEffect, useState } from "react";
-import { useParams, Link } from "react-router-dom";
+import React from "react";
+import { Link } from "react-router-dom";
+import { useFavorites } from "../context/context/FavoritesContext";
+import { Heart } from "lucide-react";
+import { toast } from "react-toastify";
 
-const MovieDetails = () => {
-  const { id } = useParams();
-  const [movie, setMovie] = useState(null);
-  const [loading, setLoading] = useState(true);
+const MovieCard = ({ movie }) => {
+  const { addFavorite, removeFavorite, isFavorite } = useFavorites();
+  const favorite = isFavorite(movie.imdbID);
 
-  useEffect(() => {
-    const fetchMovieDetails = async () => {
-      try {
-        const res = await fetch(
-          `https://www.omdbapi.com/?apikey=f5b3e9&i=${id}&plot=full`
-        );
-        const data = await res.json();
-        setMovie(data);
-      } catch (error) {
-        console.error("Error fetching movie details:", error);
-      } finally {
-        setLoading(false);
-      }
-    };
-    fetchMovieDetails();
-  }, [id]);
+  const handleFavoriteClick = (e) => {
+    e.stopPropagation();
+    e.preventDefault();
 
-  if (loading)
-    return (
-      <p className="text-center mt-10 text-gray-400 text-lg animate-pulse">
-        Loading movie details...
-      </p>
-    );
-
-  if (!movie || movie.Response === "False")
-    return (
-      <p className="text-center mt-10 text-gray-400 text-lg">
-        Movie not found.
-      </p>
-    );
+    if (favorite) {
+      removeFavorite(movie.imdbID);
+      toast.info(`${movie.Title} removed from favorites`);
+    } else {
+      addFavorite(movie);
+      toast.success(`${movie.Title} added to favorites`);
+    }
+  };
 
   return (
-    <div className="min-h-screen bg-gray-900 text-white px-6 py-10 sm:px-10 lg:px-20">
-      {/* Back Button */}
-      <Link
-        to="/"
-        className="text-yellow-400 hover:underline mb-8 inline-block text-lg"
-      >
-        ← Back to Movies
-      </Link>
-
-      {/* Movie Content */}
-      <div className="flex flex-col md:flex-row items-center md:items-start gap-8 md:gap-12">
-        {/* Movie Poster */}
+    <Link to={`/movie/${movie.imdbID}`}>
+      <div className="bg-gray-800 rounded-2xl p-3 shadow-lg hover:shadow-2xl transition-all duration-300 relative hover:scale-105">
         <img
-          src={
-            movie.Poster !== "N/A"
-              ? movie.Poster
-              : "https://via.placeholder.com/400x600"
-          }
+          src={movie.Poster !== "N/A" ? movie.Poster : "https://via.placeholder.com/300x400"}
           alt={movie.Title}
-          className="w-64 sm:w-80 lg:w-96 rounded-lg shadow-lg hover:scale-105 transition-transform duration-300"
+          className="rounded-lg w-full h-80 object-cover"
         />
 
-        {/* Movie Details */}
-        <div className="flex-1">
-          <h1 className="text-3xl sm:text-4xl font-bold text-white-400 mb-4">
-            {movie.Title}
-          </h1>
-
-          <div className="text-gray-300 space-y-2">
-            <p>
-              <span className="font-semibold text-white">Year:</span>{" "}
-              {movie.Year}
-            </p>
-            <p>
-              <span className="font-semibold text-white">Genre:</span>{" "}
-              {movie.Genre}
-            </p>
-            <p>
-              <span className="font-semibold text-white">Director:</span>{" "}
-              {movie.Director}
-            </p>
-            <p>
-              <span className="font-semibold text-white">Actors:</span>{" "}
-              {movie.Actors}
-            </p>
-           
-            <p>
-              <span className="font-semibold text-white">Rating:</span>{" "}
-               {movie.imdbRating}
-            </p>
-          </div>
-
-          <h2 className="text-2xl text-white-400 mt-8 mb-3">
-            Summary
-          </h2>
-          <p className="text-gray-300 leading-relaxed">{movie.Plot}</p>
+        <div className="mt-3 text-white">
+          <h2 className="text-lg font-semibold">{movie.Title}</h2>
+          <p className="text-sm opacity-70">{movie.Year}</p>
         </div>
+
+        <button
+          onClick={handleFavoriteClick}
+          className={`absolute top-3 right-3 p-2 rounded-full transition-colors ${
+            favorite ? "bg-red-500" : "bg-gray-700 hover:bg-red-500"
+          }`}
+        >
+          <Heart
+            size={22}
+            className={`${favorite ? "fill-white text-white" : "text-white"}`}
+          />
+        </button>
       </div>
-    </div>
+    </Link>
   );
 };
 
-export default MovieDetails;
+export default MovieCard;
