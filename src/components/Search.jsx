@@ -14,7 +14,7 @@ const Home = () => {
       try {
         const url = query
           ? `https://www.omdbapi.com/?apikey=f5b3e9&s=${query}`
-          : `https://www.omdbapi.com/?apikey=f5b3e9&s=batman`; // Default
+          : `https://www.omdbapi.com/?apikey=f5b3e9&s=batman`; 
         const res = await fetch(url);
         const data = await res.json();
         setMovies(data.Search || []);
@@ -30,7 +30,7 @@ const Home = () => {
   return (
     <div className="min-h-screen bg-gray-900 text-white p-6 sm:p-10">
       <h1 className="text-3xl sm:text-4xl font-bold mb-8 text-center text-yellow-400">
-        {query ? `Search Results for "${query}"` : "Popular Movies 🎥"}
+        {query ? `Search Results for "${query}"` : "Popular Movies"}
       </h1>
 
       {loading && (
@@ -45,14 +45,20 @@ const Home = () => {
         </p>
       )}
 
-      {/* Responsive Movie Grid */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
-        {movies.map((movie) => (
-          <MovieCard key={movie.imdbID} movie={movie} />
-        ))}
-      </div>
+   {/* Responsive Movie Grid */}
+<div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
+  {movies
+    // remove duplicates first
+    .filter(
+      (movie, index, self) =>
+        index === self.findIndex((m) => m.imdbID === movie.imdbID)
+    )
+    // render unique movies
+    .map((movie, index) => (
+      <MovieCard key={`${movie.imdbID}-${index}`} movie={movie} />
+    ))}
+</div>
     </div>
   );
-};
-
+} 
 export default Home;
