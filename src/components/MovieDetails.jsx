@@ -9,11 +9,13 @@ const MovieDetails = () => {
   useEffect(() => {
     const fetchMovieDetails = async () => {
       try {
-        const res = await fetch(`https://www.omdbapi.com/?apikey=f5b3e9&i=${id}&plot=full`);
+        const res = await fetch(
+          `https://www.omdbapi.com/?apikey=f5b3e9&i=${id}&plot=full`
+        );
         const data = await res.json();
         setMovie(data);
       } catch (error) {
-        console.error("Error fetching movie:", error);
+        console.error("Error fetching movie details:", error);
       } finally {
         setLoading(false);
       }
@@ -21,31 +23,79 @@ const MovieDetails = () => {
     fetchMovieDetails();
   }, [id]);
 
-  if (loading) return <p className="text-center mt-10 text-gray-400">Loading...</p>;
+  if (loading)
+    return (
+      <p className="text-center mt-10 text-gray-400 text-lg animate-pulse">
+        Loading movie details...
+      </p>
+    );
+
   if (!movie || movie.Response === "False")
-    return <p className="text-center mt-10 text-gray-400">Movie not found.</p>;
+    return (
+      <p className="text-center mt-10 text-gray-400 text-lg">
+        Movie not found.
+      </p>
+    );
 
   return (
-    <div className="min-h-screen bg-gray-900 text-white p-6">
-      <Link to="/" className="text-yellow-400 hover:underline mb-6 inline-block">
+    <div className="min-h-screen bg-gray-900 text-white px-6 py-10 sm:px-10 lg:px-20">
+      {/* Back Button */}
+      <Link
+        to="/"
+        className="text-yellow-400 hover:underline mb-8 inline-block text-lg"
+      >
         ← Back to Movies
       </Link>
 
-      <div className="flex flex-col md:flex-row gap-6 items-center">
+      {/* Movie Content */}
+      <div className="flex flex-col md:flex-row items-center md:items-start gap-8 md:gap-12">
+        {/* Movie Poster */}
         <img
-          src={movie.Poster !== "N/A" ? movie.Poster : "https://via.placeholder.com/400"}
+          src={
+            movie.Poster !== "N/A"
+              ? movie.Poster
+              : "https://via.placeholder.com/400x600"
+          }
           alt={movie.Title}
-          className="w-64 md:w-80 rounded-lg shadow-lg"
+          className="w-64 sm:w-80 lg:w-96 rounded-lg shadow-lg hover:scale-105 transition-transform duration-300"
         />
 
-        <div>
-          <h1 className="text-4xl font-bold mb-4">{movie.Title}</h1>
-          <p className="text-gray-400 mb-2">Year: {movie.Year}</p>
-          <p className="text-gray-400 mb-2">Genre: {movie.Genre}</p>
-          <p className="text-gray-400 mb-2">Director: {movie.Director}</p>
-          <p className="text-gray-400 mb-2">Actors: {movie.Actors}</p>
-          <p className="text-gray-400 mb-2">IMDB Rating: {movie.imdbRating}</p>
-          <h2 className=" mt-6 mb-2 text-gray-400">Summary</h2>
+        {/* Movie Details */}
+        <div className="flex-1">
+          <h1 className="text-3xl sm:text-4xl font-bold text-yellow-400 mb-4">
+            {movie.Title}
+          </h1>
+
+          <div className="text-gray-300 space-y-2">
+            <p>
+              <span className="font-semibold text-white">Year:</span>{" "}
+              {movie.Year}
+            </p>
+            <p>
+              <span className="font-semibold text-white">Genre:</span>{" "}
+              {movie.Genre}
+            </p>
+            <p>
+              <span className="font-semibold text-white">Director:</span>{" "}
+              {movie.Director}
+            </p>
+            <p>
+              <span className="font-semibold text-white">Actors:</span>{" "}
+              {movie.Actors}
+            </p>
+            <p>
+              <span className="font-semibold text-white">Runtime:</span>{" "}
+              {movie.Runtime}
+            </p>
+            <p>
+              <span className="font-semibold text-white">Rating:</span>{" "}
+               {movie.imdbRating}
+            </p>
+          </div>
+
+          <h2 className="text-2xl font-semibold text-yellow-400 mt-8 mb-3">
+            Summary
+          </h2>
           <p className="text-gray-300 leading-relaxed">{movie.Plot}</p>
         </div>
       </div>
