@@ -79,7 +79,7 @@ const MovieDetails = () => {
          <p className="text-gray-400 mb-2">Actors: {movie.Actors}</p>
 
          <div className="mt-4">
-           <h2 className="text-xl font-semibold text-gray-400 mb-2 italic">Summary</h2>
+           <h2 className="font-semibold text-gray-400 mb-2 italic">Summary</h2>
            <p className="text-gray-300 leading-relaxed">{movie.Plot}</p>
          </div>
         </div>
