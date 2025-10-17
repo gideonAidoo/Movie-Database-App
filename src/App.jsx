@@ -7,6 +7,7 @@ import Navbar from "./components/Navbar";
 import Home from "./components/Search";
 import MovieDetails from "./components/MovieDetails";
 import Favorites from "./components/Favorites";
+import Footer from "./components/Footer";
 
 function App() {
   return (
@@ -28,6 +29,7 @@ function App() {
         pauseOnHover
         theme="dark"
       />
+      <Footer />
     </Router>
   );
 }
