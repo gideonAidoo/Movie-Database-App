@@ -75,28 +75,28 @@ const MovieDetails = () => {
 
          <div className="mt-6 space-y-2 text-gray-500">
   <p>
-    <span className="font-semibold text-white">Year:</span> {movie.Year}
+    <span className="font-semibold text-gray-400">Year:</span> {movie.Year}
   </p>
   <p>
-    <span className="font-semibold text-white">Genre:</span> {movie.Genre}
+    <span className="font-semibold text-gray-400">Genre:</span> {movie.Genre}
   </p>
   <p>
-    <span className="font-semibold text-white">Director:</span> {movie.Director}
+    <span className="font-semibold text-gray-400">Director:</span> {movie.Director}
   </p>
   <p>
-    <span className="font-semibold text-white">Actors:</span> {movie.Actors}
+    <span className="font-semibold text-gray-400">Actors:</span> {movie.Actors}
   </p>
   <p>
-    <span className="font-semibold text-white">Runtime:</span> {movie.Runtime}
+    <span className="font-semibold text-gray-400">Runtime:</span> {movie.Runtime}
   </p>
   <p>
-    <span className="font-semibold text-white">IMDB Rating:</span> ⭐ {movie.imdbRating}
+    <span className="font-semibold text-gray-400">IMDB Rating:</span> ⭐ {movie.imdbRating}
   </p>
 </div>
 
 {/* Movie Summary */}
 <p className="text-gray-500 mt-4 leading-relaxed">
-  <span className="font-semibold text-white">Summary:</span> {movie.Plot}
+  <span className="font-semibold text-gray-400">Summary:</span> {movie.Plot}
 </p>
 
         </div>
