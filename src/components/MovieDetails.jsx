@@ -73,19 +73,36 @@ const MovieDetails = () => {
             </button>
           </div>
 
-         <p className="text-gray-400 mb-2">Year: {movie.Year}</p>
-         <p className="text-gray-400 mb-2">Genre: {movie.Genre}</p>
-         <p className="text-gray-400 mb-2">Director: {movie.Director}</p>
-         <p className="text-gray-400 mb-2">Actors: {movie.Actors}</p>
+         <div className="mt-6 space-y-2 text-gray-500">
+  <p>
+    <span className="font-semibold text-white">Year:</span> {movie.Year}
+  </p>
+  <p>
+    <span className="font-semibold text-white">Genre:</span> {movie.Genre}
+  </p>
+  <p>
+    <span className="font-semibold text-white">Director:</span> {movie.Director}
+  </p>
+  <p>
+    <span className="font-semibold text-white">Actors:</span> {movie.Actors}
+  </p>
+  <p>
+    <span className="font-semibold text-white">Runtime:</span> {movie.Runtime}
+  </p>
+  <p>
+    <span className="font-semibold text-white">IMDB Rating:</span> ⭐ {movie.imdbRating}
+  </p>
+</div>
 
-         <div className="mt-4">
-           <h2 className="font-semibold text-gray-400 mb-2 italic">Summary</h2>
-           <p className="text-gray-300 leading-relaxed">{movie.Plot}</p>
-         </div>
+{/* Movie Summary */}
+<p className="text-gray-500 mt-4 leading-relaxed">
+  <span className="font-semibold text-white">Summary:</span> {movie.Plot}
+</p>
+
         </div>
       </div>
     </div>
   );
-};
+}
 
 export default MovieDetails;
